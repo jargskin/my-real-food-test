@@ -16,7 +16,7 @@ function Navbar() {
         {isLogged === false && (
           <>
             <Link href="/register">Registrar</Link>
-            <Link href="/login">Login</Link>
+            <Link href="/login">Ingresar</Link>
           </>
         )}
         {isLogged !== false && (

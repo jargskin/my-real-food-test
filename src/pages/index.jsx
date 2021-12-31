@@ -1,11 +1,13 @@
 import React from 'react'
-import Task from '../components/Task';
+import Task from '../templates/Task';
 
 const Home = () => {
   return (
     <div className='container p-4'>
-      <div className="row">
-        <Task />
+      <div className="row justify-content-center">
+        <div className="col-md-6 ">
+          <Task />
+        </div>
       </div>
     </div>    
   )

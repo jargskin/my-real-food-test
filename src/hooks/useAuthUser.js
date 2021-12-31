@@ -4,7 +4,6 @@ import { auth } from "../config/firebase";
 import { useRouter } from "next/router";
 import AuthContext from "../context/AuthContext";
 
-// HOOK FOR VALIDATE IF USER IS LOGGED
 
 export const useAuthUser = () => {
   const { push, pathname } = useRouter();
@@ -20,7 +19,6 @@ export const useAuthUser = () => {
         setisLogged(false);
       } else {
         setisLogged(true);
-        // IF THE USER IS LOGGED IN AND WANTS TO VISIT THE ROUTES
         if (pathname === "/login" || pathname === "/register") {
           push("/");
         }

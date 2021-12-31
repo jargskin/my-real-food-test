@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Swal from 'sweetalert2';
 import Link from "next/link";
+import { faUser, faKey } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from "next/router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
-import styles  from './index.module.scss';
 
 function Login() {
   const [Credentials, setCredentials] = useState({
@@ -21,21 +22,18 @@ function Login() {
     });
   };
 
-  const [loading, setLoading] = useState(false);
 
 
-  const loginUser = async () => {
-    setLoading(true)
+  const loginUser = async (e) => {
+    e.preventDefault()
     try {
       await signInWithEmailAndPassword(
         auth,
         Credentials.email,
         Credentials.password
       );
-      setLoading(false)
       push("/");
     } catch ({message}) {
-      setLoading(false)
       Swal.fire({
         icon: 'warning',
         text: 'Debes ingresar tu usuario y contraseña',
@@ -51,42 +49,50 @@ function Login() {
   };
   return (
     <>
-      <div>
-        <div className={styles.form_signin}>
-          <h1 className={styles.text_login}>Inicia sesión en tu cuenta</h1>
-          <div className="center">
-            <input
-              name="email"
-              type="text"
-              className={styles.input_form}
-              placeholder="Correo"
-              onChange={changeUser}
-            />
+      <div className="row justify-content-center">
+        <div className='card col-md-6 p-0'>
+          <div className="card-header">
+            <h3>Inicia sesión en tu cuenta</h3>
           </div>
-          <div className="center">
-            <input
-              name="password"
-              type="password"
-              className={styles.input_form}
-              placeholder="Contraseña"
-              onChange={changeUser}
-            />
-          </div>
-          <div className="center">
-            {/* <LoadingButton
-              variant="contained"
-              onClick={loginUser}
-              loading={loading}
-              loadingPosition="center"
-              className={styles.button_signup}
-            >
+          <div className="card-body">
+            <form onSubmit={loginUser}>
+              <div className="form-group input-group mb-2">
+                <div className="input-group-text bg-light">
+                  <FontAwesomeIcon icon={faUser} />
+                </div>
+                <input
+                  type="email"
+                  name="email"
+                  className='form-control'
+                  placeholder="Correo"
+                  onChange={changeUser}
+                />
+              </div>
+              <div className="form-group input-group mb-2">
+                <div className="input-group-text bg-light">
+                  <FontAwesomeIcon icon={faKey} />
+                </div>
+                <input
+                  type="password"
+                  name="password"
+                  className='form-control'
+                  placeholder="Contraseña"
+                  onChange={changeUser}
+                />
+              </div>
+              <button
+                className='btn btn-primary btn-block w-100'
+                type="submit"
+              >
                 Ingresar
-              </LoadingButton> */}
+              </button>
+            </form>
           </div>
-          <p className={styles.text_center}>O también</p>
-          <p className={styles.text_center}>
-            ¿Aún no tienes cuenta? <Link href="/register">Registrarse</Link>
-          </p>
+          <div className="card-body">
+            <p className="text-center">
+              Aún no tienes cuenta? <Link href="/register">Registrarse</Link>
+            </p>
+          </div>
         </div>
       </div>
     </>
