@@ -1,24 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { faTasks, faBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Loading from '../../components/Loading';
 
-const TaskForm = ({addOrEditTask}) => {
-  const [values, setValues] = useState({
+const TaskForm = ({addingTask}) => {
+  const initialStateValues = {
     name_task: '',
     description_task: '',
-  });
+  }
+  const [valuesForm, setValuesForm] = useState(initialStateValues);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setValues({
-      ...values,
+    setValuesForm({
+      ...valuesForm,
       [name]: value
     })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addOrEditTask(values);
+    addingTask(valuesForm);
+    setValuesForm({...initialStateValues})
   }
 
   return (
@@ -32,6 +35,7 @@ const TaskForm = ({addOrEditTask}) => {
           className='form-control'
           placeholder='Nombre tarea' name='name_task'
           onChange={handleInputChange}
+          value={valuesForm.name_task}
         />
       </div>
       <div className="form-group input-group mb-2">
@@ -44,6 +48,7 @@ const TaskForm = ({addOrEditTask}) => {
           placeholder='Descripción tarea'
           name='description_task'
           onChange={handleInputChange}
+          value={valuesForm.description_task}
         />
       </div>
       <button className='btn btn-primary btn-block'>
