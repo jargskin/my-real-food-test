@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Link from "next/link";
 import AuthContext from "../../context/AuthContext";
 import { useAuthUser } from "../../hooks/useAuthUser";
-import styles from './index.module.scss';
+import style from './index.module.scss';
 
 function Navbar() {
 
@@ -11,22 +11,29 @@ function Navbar() {
   const { isLogged } = useContext(AuthContext);
 
   return (
-    <div>
-      <nav className={styles.navbar}>
-        {isLogged === false && (
-          <>
-            <Link href="/register">Registrar</Link>
-            <Link href="/login">Ingresar</Link>
-          </>
-        )}
-        {isLogged !== false && (
-          <>
-            <Link href="/">Home</Link>
-            <Link href="/logout" >Logout</Link>
-          </>
-        )}
-      </nav>
-    </div>
+    <>
+      <div>
+        <nav className="navbar navbar-light bg-light mb-5 justify-content-end">
+          {isLogged === false && (
+            <> 
+              <Link  href="/register">
+                <a className={style.color_white}>Registrar</a> 
+              </Link>
+              <Link  href="/login">
+                <a className={style.color_white}>Ingresar</a> 
+              </Link>
+            </>
+          )}
+          {isLogged !== false && (
+            <>
+              <Link  href="/logout" >
+                <a className={style.color_white}>Logout</a> 
+              </Link>
+            </>
+          )}
+        </nav>
+      </div>
+    </>
   );
 }
 
