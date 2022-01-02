@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthContext";
 
 
 export const useAuthUser = () => {
-  const { push, pathname } = useRouter();
+  const router = useRouter();
 
   const { setisLogged } = useContext(AuthContext);
 
@@ -15,12 +15,12 @@ export const useAuthUser = () => {
       let userLogged = user === null ? false : true;
 
       if (!userLogged) {
-        push("/login");
+        router.push("/login");
         setisLogged(false);
       } else {
         setisLogged(true);
-        if (pathname === "/login" || pathname === "/register") {
-          push("/");
+        if (router.pathname === "/login" || router.pathname === "/register") {
+          router.push("/");
         }
       }
     });
